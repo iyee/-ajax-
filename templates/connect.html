@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+    .texta{
+        position: absolute;
+        left:900px;
+        {#float:right;#}
+        background-color: darkgrey;
+        font-size: 20px;
+
+        width: 900px;
+        height: 600px;
+    }
+</style>
 </head>
+
 <body>
 <ul>
  {% for pub_obj in list %}
@@ -11,6 +25,13 @@
 {#   <label title="pub_obj" >{{ pub_obj }}</label>#}
    <li> <a href="/list-{{ pub_obj}}/"> {{ pub_obj }} </a></li>
  {% endfor %}
+
+
+<form name= "form1" action="/list_post/" method='post'>
+         <textarea class="texta" name= "file" id="file"  v-model="item.content">123</textarea>
+
+          <input  id="btn" type="submit" value="submit">
+</form>
 
 </ul>
 </body>

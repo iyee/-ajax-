@@ -8,12 +8,19 @@
 
 </style>
 <body>
-<form name= "form1" action="/list_post/" method='post'>
+<form name= "form1" action="/list_post-{{ nid }}/" method='post'>
          <textarea name= "file" id="file" style="background-color:darkgrey;font-size: 20px;width:900px;height:600px" v-model="item.content">{{content}}</textarea>
 
-          <input type="submit" value="submit">
+          <input id="btn" type="submit" value="submit">
+          <input value="返回" type=button onclick="window.location='/conntect/'">
 </form>
+
 {#<--!<div>{{ content}}</div>-->#}
 {#<textarea  style="font-size: 20px;width:100px;height:200px" v-model="item.content">{{content}}</textarea>#}
+<script type="text/javascript">
+    document.getElementById("btn").onclick = function () {
+        alert({{ a }})
+    }
+</script>
 </body>
 </html>

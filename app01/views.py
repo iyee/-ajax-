@@ -133,16 +133,15 @@ def list(request,nid):
     print(nid)
     f = open(nid,'rb')
     content = f.read()
-
     f.close()
-
+    a='123'
 
     # return HttpResponse(200)
-    return render(request,"list.html",{'content':content})
+    return render(request,"list.html",{'content':content,'a':a,'nid':nid})
 
 
-def list_post(request):
-    print('123')
+def list_post(request,nid):
+    print('-->',nid)
     if request.method =="POST":
         a = request.POST.get("file")
         # print(type(a))
@@ -155,5 +154,5 @@ def list_post(request):
         # res = subprocess.Popen('nginx -t', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         # res=res.stderr.read()
 
-    return redirect("/conntect/")
+    return redirect("/list-%s/" %nid)
 

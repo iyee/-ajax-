@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^get_vaildCode_img/$', views.get_vaildCode_img),
     url(r'^log_out/$', views.log_out),
     url(r'^list-(?P<nid>.+)/$', views.list),
-    url(r'^list_post/$', views.list_post),
+    url(r'^list_post-(?P<nid>.+)/$', views.list_post),
     url(r'^conntect/$', views.conntect),
 
 ]
