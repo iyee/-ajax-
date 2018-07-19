@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+ {% for pub_obj in list %}
+{#   <input type="radio" name="dir" value="pub_obj">#}
+{#   <label title="pub_obj" >{{ pub_obj }}</label>#}
+   <li> <a href="/list-{{ pub_obj}}/"> {{ pub_obj }} </a></li>
+ {% endfor %}
+
+</ul>
+</body>
+</html>
