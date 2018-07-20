@@ -27,12 +27,31 @@
  {% endfor %}
 
 
-<form name= "form1" action="/list_post/" method='post'>
-         <textarea class="texta" name= "file" id="file"  v-model="item.content">123</textarea>
+{#<form name= "form1" action="/list_post/" method='post'>#}
+ <textarea class="texta" name= "file" id="file"  v-model="item.content">123</textarea>
 
-          <input  id="btn" type="submit" value="submit">
-</form>
+ <input  id="btn" type="submit" value="submit">
+{#</form>#}
 
+
+<script src="/static/jquery-3.3.1.min.js"></script>
+<script>
+    $(".btn").click(function () {
+        $.ajax({
+            url: "list_post-{{ nid }}",
+            type: "POST",
+            date: ({
+                name: $(".file").val(),
+            }),
+            success: function (data) {
+                var data=JSON.parse(data);
+                console.log(data)
+
+            }
+        })
+    })
+
+</script>
 </ul>
 </body>
 </html>

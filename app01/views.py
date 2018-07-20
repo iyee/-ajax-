@@ -146,11 +146,13 @@ def list_post(request,nid):
         a = request.POST.get("file")
         # print(type(a))
         a=a.encode('utf8').strip()
-        with open('new_nginx.conf', 'wb') as f:
-            print('write')
+        new_file="new"+nid
+        with open(new_file, 'wb') as f:
+            print('write',nid)
+            print('new_file',new_file)
             f.write(a)
-        os.remove("nginx.conf")
-        os.rename("new_nginx.conf","nginx.conf")
+        os.remove(nid)
+        os.rename(new_file,nid)
         # res = subprocess.Popen('nginx -t', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         # res=res.stderr.read()
 

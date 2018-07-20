@@ -46,6 +46,10 @@ dic={}
 # print(dic)
 
 
-list=[]
-list=glob.glob(r'*.py')
-print(list)
+# list=[]
+# list=glob.glob(r'*.py')
+# print(list)
+
+nid='fadf'
+new_file="new"+nid
+print(new_file)

@@ -23,6 +23,9 @@
         alert({{ a }})
     }
 </script>
+<script>
+    $("")
 
+</script>
 </body>
 </html>
