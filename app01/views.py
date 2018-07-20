@@ -120,7 +120,8 @@ def conntect(request):
         dic = {}
     print(list1)
     '''
-    list = glob.glob(r'*.conf')
+    list = glob.glob(r'/etc/nginx/*.conf')
+#    list = glob.glob(r'/etc/nginx/*.conf')
 
     return  render(request,"connect.html",{'list':list})
     # print(glob.glob(r'*.py'))
@@ -134,8 +135,10 @@ def list(request,nid):
     f = open(nid,'rb')
     content = f.read()
     f.close()
-    a='123'
-
+    # a='123'
+    res=subprocess.Popen('nginx -t',stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
+    a = res.stderr.read()
+    print("nginx -t",a)
     # return HttpResponse(200)
     return render(request,"list.html",{'content':content,'a':a,'nid':nid})
 
@@ -146,7 +149,7 @@ def list_post(request,nid):
         a = request.POST.get("file")
         # print(type(a))
         a=a.encode('utf8').strip()
-        new_file="new"+nid
+        new_file=nid+"new"
         with open(new_file, 'wb') as f:
             print('write',nid)
             print('new_file',new_file)
