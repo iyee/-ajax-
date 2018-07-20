@@ -159,6 +159,9 @@ def list_post(request,nid):
         os.rename(new_file,nid)
         # res = subprocess.Popen('nginx -t', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         # res=res.stderr.read()
-
     return redirect("/list-%s/" %nid)
-
+def release(request):
+    print("release")
+    # res = subprocess.Popen('/root/subprocess.sh', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    # print(res.stdout.read().strip())
+    return redirect("/conntect/")
