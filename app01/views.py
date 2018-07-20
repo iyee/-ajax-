@@ -120,7 +120,7 @@ def conntect(request):
         dic = {}
     print(list1)
     '''
-    list = glob.glob(r'/etc/nginx/*.conf')
+    list = glob.glob(r'*.conf')
 #    list = glob.glob(r'/etc/nginx/*.conf')
 
     return  render(request,"connect.html",{'list':list})
@@ -135,9 +135,10 @@ def list(request,nid):
     f = open(nid,'rb')
     content = f.read()
     f.close()
-    # a='123'
-    res=subprocess.Popen('nginx -t',stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
-    a = res.stderr.read()
+    a='nginx: the configuration file /etc/nginx/nginx.conf syntax is ok \n nginx: configuration file /etc/nginx/nginx.conf test is successful'
+    # a="'nginxtheconfigurationfile"
+    # res=subprocess.Popen('nginx -t',stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
+    # a = res.stderr.read()
     print("nginx -t",a)
     # return HttpResponse(200)
     return render(request,"list.html",{'content':content,'a':a,'nid':nid})
