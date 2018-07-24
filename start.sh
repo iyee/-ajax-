@@ -1,0 +1,1 @@
+/usr/local/python3/bin/python3 /srv/nginx/manage.py   runserver 0.0.0.0:8000

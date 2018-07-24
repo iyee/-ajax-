@@ -160,8 +160,18 @@ def list_post(request,nid):
         # res = subprocess.Popen('nginx -t', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         # res=res.stderr.read()
     return redirect("/list-%s/" %nid)
-def release(request):
-    print("release")
+def release(request,nid):
+    print("release",nid)
+    k1=request.GET.get('k1')
+    print(k1)
     # res = subprocess.Popen('/root/subprocess.sh', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     # print(res.stdout.read().strip())
-    return redirect("/conntect/")
+    ret="success !!!"
+    # return redirect("/list-%s/" %nid ,args=[b] ) tent_type="application/json"
+    # return render(request,"list.html" ,{'b':b } )
+    return HttpResponse(json.dumps(ret))
+
+def test(request):
+    print('test')
+
+    return render(request,"base.html")

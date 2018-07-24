@@ -7,13 +7,16 @@
 <style>
 
 </style>
+<link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
 <body>
 <form name= "form1" action="/list_post-{{ nid }}/" method='post'>
          <textarea name= "file" id="file" style="background-color:darkgrey;font-size: 20px;width:900px;height:600px" v-model="item.content">{{content}}</textarea>
 
-          <input id="btn" type="submit" value="submit">
-          <input value="返回" type=button onclick="window.location='/conntect/'">
-          <input value="部署" type=button onclick="window.location='/release/'">
+          <input class=" btn btn-primary" id="btn" type="submit" value="submit">
+          <input class="btn btn-info" value="返回" type=button onclick="window.location='/conntect/'">
+{#          <input id="release" value="部署" type=button >#}
+          <input class="btn btn-success" id="release" value="部署" type=button onclick="return checkSubmit()">
+          <div>{{ b }}</div>
 </form>
 <textarea style="width: 900px;height: 65px">{{ a }}</textarea>
 {#<--!<div>{{ content}}</div>-->#}
@@ -24,6 +27,46 @@
 {#        alert({{ a }})#}
 {#    }#}
 {#</script>#}
+<script>
+    function checkSubmit() {
+        if (confirm("确认部署")) {
+            window.event.returnValue = true;
+            //    window.location='/release-{{ nid }}/';  }
+            $.ajax({
+            url:"/release-{{ nid }}",
+            type:"GET",
+            data:{"k1":"v1"},
+            success:function (arg) {
+                 var data=$.parseJSON(arg);
+                 alert(data);
+            }})
+        }
+    }
+/*
+    $("#release").click(function () {
+        function checkSubmit() {
+        if (confirm("确认部署")) {
+            window.event.returnValue = true;
+        }}
+     $.ajax({
+         url:"/release-{{ nid }}",
+         type:"GET",
+         data:{"k1":"v1"},
+         success:function (arg) {
+             var data=$.parseJSON(arg);
+             alert(data);
+             //  console.log(data.status);
+             //  console.log(typeof  data)
+             //  if(callback.status)
+              //    alert(callback);
+              //} else{
+              //   alert(callback.error)
+              // }
 
+         }
+     })
+})
+*/
+</script>
 </body>
 </html>
