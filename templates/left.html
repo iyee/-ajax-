@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block right %}
+
+          <ul class="nav nav-sidebar ">
+              {% for pub_obj in list %}
+{#              <li id="{{ pub_obj }}" class=""><a href="/list-{{ pub_obj}}/"> {{ pub_obj }} <input onclick="list()" type="button" class="btn btn-success"></a></li>#}
+              <li id="{{ pub_obj }}" class="" onclick="list(this)" >{{ pub_obj }}</li>
+              {% endfor %}
+          </ul>
+
+{#    <h1 class="pull-right">欢迎{{ request.user }}登录</h1>#}
+    <div>
+       <h2 id="modifying_file">正在修改的文件是:</h2>
+       <textarea id="file" style="height: 550px;width: 850px"></textarea>
+       <input class="submit btn btn-primary" id="btn" type="submit" value="submit" onclick="Submit()">
+{#       <input class="btn btn-info" value="返回" type=button onclick="window.location='/conntect/'">#}
+{#     <input id="release" value="部署" type=button >#}
+       <input class="btn btn-success" id="release" value="部署" type=button onclick="return checkSubmit()">
+
+
+    </div>
+    <div>
+       <textarea id="rest" style="height: 100px;width: 850px"></textarea>
+    </div>
+          <!--ul class="nav nav-sidebar">
+            <li><a href="https://v3.bootcss.com/examples/dashboard/">Nav item</a></li>
+            <li><a href="https://v3.bootcss.com/examples/dashboard/">Nav item again</a></li>
+            <li><a href="https://v3.bootcss.com/examples/dashboard/">One more nav</a></li>
+            <li><a href="https://v3.bootcss.com/examples/dashboard/">Another nav item</a></li>
+            <li><a href="https://v3.bootcss.com/examples/dashboard/">More navigation</a></li>
+          </ul-->
+
+<script>
+   function list(obj) {
+           {#var tmp=obj;#}
+           {#alert(tmp.tagName)#}
+           var id=$(obj).attr("id");
+           var url ='/list-'+id+'/';
+           console.log(url);
+           $.ajax({
+               type:'POST',
+               url:url,
+               data: {'id':id},
+               success:function (arg) {
+                   var data=$.parseJSON(arg);
+                   console.log(data);
+                   $('#file').html();
+                   $('#file').html(data.content);
+                   $('#modifying_file').html("正在修改的文件:  "+id)
+                   //$('#rest').html(data.rest);
+                   $('.submit').attr('id',id);
+               }
+           })
+
+   }
+   function Submit() {
+           var content=$('#file').val();
+           var id=$('.submit').attr("id");
+           var url='/list_post-'+id+'/';
+           console.log(content);
+           //console.log(id);
+           $.ajax({
+               type:'POST',
+               url:url,
+               data: {"id":id,"content":content},
+               success:function (arg) {
+                   var data=$.parseJSON(arg)
+                   //$('#rest').html(data.rest);
+                   $('#file').html();
+                   $('#file').html(data.content);
+
+               }
+           })
+
+   }
+
+   function checkSubmit() {
+        if (confirm("确认部署")) {
+            window.event.returnValue = true;
+            //    window.location='/release-{{ nid }}/';  }
+            $.ajax({
+            url:"/release-{{ nid }}",
+            type:"GET",
+            data:{"k1":"v1"},
+            success:function (arg) {
+                 //var data=$.parseJSON(arg);
+                 alert(data);
+            }})
+        }
+    }
+
+</script>
+
+{% endblock %}
+
+{#    {% for pub_obj in list %}#}
+{#   <input type="radio" name="dir" value="pub_obj">#}
+{#   <label title="pub_obj" >{{ pub_obj }}</label>#}
+{#   <li> <a href="/list-{{ pub_obj}}/"> {{ pub_obj }} </a></li>#}
+
+

@@ -123,7 +123,8 @@ def conntect(request):
     list = glob.glob(r'*.conf')
 #    list = glob.glob(r'/etc/nginx/*.conf')
 
-    return  render(request,"connect.html",{'list':list})
+    # return  render(request,"connect.html",{'list':list})
+    return  render(request,"left.html",{'list':list})
     # print(glob.glob(r'*.py'))
 
 
@@ -132,34 +133,51 @@ def list(request,nid):
     #     print('write')
     #     f.write('sdfsdfsfsdfs\nsdfsafa\nsfasfasf')
     print(nid)
-    f = open(nid,'rb')
+    dic={}
+    f = open(nid,'r')  #前端正常显示用b
     content = f.read()
     f.close()
-    a='nginx: the configuration file /etc/nginx/nginx.conf syntax is ok \n nginx: configuration file /etc/nginx/nginx.conf test is successful'
+    #rest='nginx: the configuration file /etc/nginx/nginx.conf syntax is ok \n nginx: configuration file /etc/nginx/nginx.conf test is successful'
     # a="'nginxtheconfigurationfile"
     # res=subprocess.Popen('nginx -t',stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True)
     # a = res.stderr.read()
-    print("nginx -t",a)
+    #dic['rest']=rest
+    dic['content']=content
+    dic['nid']=nid
+    print("nginx -t:",dic)
     # return HttpResponse(200)
-    return render(request,"list.html",{'content':content,'a':a,'nid':nid})
-
+    # return render(request,"list-file.html",{'content':content,'a':a,'nid':nid})
+    return  HttpResponse(json.dumps(dic))
 
 def list_post(request,nid):
     print('-->',nid)
     if request.method =="POST":
-        a = request.POST.get("file")
-        # print(type(a))
-        a=a.encode('utf8').strip()
+        # a = request.POST.get("file")
+        content = request.POST.get("content")
+        print(type(content),content)
+        content=content.encode('utf8').strip()
         new_file=nid+"new"
         with open(new_file, 'wb') as f:
             print('write',nid)
             print('new_file',new_file)
-            f.write(a)
+            f.write(content)
         os.remove(nid)
         os.rename(new_file,nid)
+        rest = 'nginx: the configuration file /etc/nginx/nginx.conf syntax is ok \n nginx: configuration file /etc/nginx/nginx.conf test is successful'
+        #read again
+        f = open(nid, 'r')
+        content_read = f.read()
+        f.close()
+
+        dic={}
+        dic['rest'] = rest
+        dic['content'] = content_read
+        dic['nid'] = nid
+        print("nginx -t:", dic)
         # res = subprocess.Popen('nginx -t', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         # res=res.stderr.read()
-    return redirect("/list-%s/" %nid)
+    # return redirect("/list-%s/" %nid)
+    return HttpResponse(json.dumps(dic))
 def release(request,nid):
     print("release",nid)
     k1=request.GET.get('k1')
@@ -174,4 +192,4 @@ def release(request,nid):
 def test(request):
     print('test')
 
-    return render(request,"base.html")
+    return render(request,"left.html")

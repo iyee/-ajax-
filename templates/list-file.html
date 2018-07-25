@@ -1,0 +1,38 @@
+{% extends "base.html"  %}
+
+{% block  right %}
+<form name= "form1" action="/list_post-{{ nid }}/" method='post'>
+         <textarea name= "file" id="file" style="background-color:darkgrey;font-size: 20px;width:900px;height:600px" v-model="item.content">{{content}}</textarea>
+
+          <input class=" btn btn-primary" id="btn" type="submit" value="submit">
+          <input class="btn btn-info" value="返回" type=button onclick="window.location='/conntect/'">
+{#          <input id="release" value="部署" type=button >#}
+          <input class="btn btn-success" id="release" value="部署" type=button onclick="return checkSubmit()">
+          <div>{{ b }}</div>
+</form>
+<textarea style="width: 900px;height: 65px">{{ a }}</textarea>
+{#<--!<div>{{ content}}</div>-->#}
+{#<textarea  style="font-size: 20px;width:100px;height:200px" v-model="item.content">{{content}}</textarea>#}
+<script src="/static/jquery-3.3.1.min.js"></script>
+{#<script>#}
+{#    document.getElementById("btn").onclick = function () {#}
+{#        alert({{ a }})#}
+{#    }#}
+{#</script>#}
+<script>
+    function checkSubmit() {
+        if (confirm("确认部署")) {
+            window.event.returnValue = true;
+            //    window.location='/release-{{ nid }}/';  }
+            $.ajax({
+            url:"/release-{{ nid }}",
+            type:"GET",
+            data:{"k1":"v1"},
+            success:function (arg) {
+                 //var data=$.parseJSON(arg);
+                 alert(data);
+            }})
+        }
+    }
+</script>
+{% endblock %}

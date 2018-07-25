@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^list-(?P<nid>.+)/$', views.list),
     url(r'^list_post-(?P<nid>.+)/$', views.list_post),
     url(r'^conntect/$', views.conntect),
+    url(r'^conntect/list_post-(?P<nid>.+)/$', views.list_post),
     url(r'^release-(?P<nid>.+)/$', views.release),
     url(r'^rest/$', views.test),
 
